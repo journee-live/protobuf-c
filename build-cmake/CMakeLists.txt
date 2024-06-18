@@ -112,7 +112,7 @@ if (MSVC AND NOT BUILD_SHARED_LIBS)
 	foreach(flag_var
 		CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE
 		CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO
-		CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE 
+		CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
 		CMAKE_C_FLAGS_MINSIZEREL CMAKE_FLAGS_RELWITHDEBINFO)
 	  if(${flag_var} MATCHES "/MD")
 		string(REGEX REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
@@ -147,7 +147,7 @@ SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_EXTENSIONS OFF)
 
 add_custom_target(protoc-generated-files
-       COMMAND ${CMAKE_COMMAND} -E env PATH="${OS_PATH_VARIABLE}" -- ${protobuf_PROTOC_EXECUTABLE}
+       COMMAND ${CMAKE_COMMAND} -E env PATH="${OS_PATH_VARIABLE}" ${protobuf_PROTOC_EXECUTABLE}
             --cpp_out ${CMAKE_CURRENT_BINARY_DIR} -I${PROTOBUF_INCLUDE_DIR}
             -I${MAIN_DIR} ${MAIN_DIR}/protobuf-c/protobuf-c.proto
        COMMENT Running protoc on ${MAIN_DIR}/protobuf-c/protobuf-c.proto
@@ -316,12 +316,12 @@ ADD_TEST(test-version test-version)
 
 if(WIN32)
     set_tests_properties(
-        test-generated-code 
-        test-generated-code2 
-        test-generated-code3 
-        test-issue220 
-        test-issue251 
-        test-version 
+        test-generated-code
+        test-generated-code2
+        test-generated-code3
+        test-issue220
+        test-issue251
+        test-version
         PROPERTIES ENVIRONMENT "PATH=${WINDOWS_PATH_VARIABLE}\\;$<TARGET_FILE_DIR:protoc-gen-c>" )
 endif(WIN32)
 
